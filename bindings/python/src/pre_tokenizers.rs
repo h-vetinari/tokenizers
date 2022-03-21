@@ -28,7 +28,12 @@ use super::utils::*;
 ///
 /// This class is not supposed to be instantiated directly. Instead, any implementation of a
 /// PreTokenizer will return an instance of this class when instantiated.
-#[pyclass(dict, module = "tokenizers.pre_tokenizers", name = "PreTokenizer")]
+#[pyclass(
+    dict,
+    module = "tokenizers.pre_tokenizers",
+    name = "PreTokenizer",
+    subclass
+)]
 #[derive(Clone, Serialize, Deserialize)]
 pub struct PyPreTokenizer {
     #[serde(flatten)]
@@ -228,7 +233,7 @@ macro_rules! setter {
 ///     add_prefix_space (:obj:`bool`, `optional`, defaults to :obj:`True`):
 ///         Whether to add a space to the first word if there isn't already one. This
 ///         lets us treat `hello` exactly like `say hello`.
-#[pyclass(extends=PyPreTokenizer, module = "tokenizers.pre_tokenizers", name=ByteLevel)]
+#[pyclass(extends=PyPreTokenizer, module = "tokenizers.pre_tokenizers", name = "ByteLevel")]
 #[pyo3(text_signature = "(self, add_prefix_space=True, use_regex=True)")]
 pub struct PyByteLevel {}
 #[pymethods]
